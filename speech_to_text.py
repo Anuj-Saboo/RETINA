@@ -17,7 +17,7 @@ def convert_to_text():
     write("newoutput.wav", fs, np.int16(myrecording / np.max(np.abs(myrecording)) * 32767))
     print("recording completed")
 
-    hellow = sr.AudioFile('/home/anuj/PycharmProjects/726/newoutput.wav')
+    hellow = sr.AudioFile('/home/anuj/PycharmProjects/RETINA/newoutput.wav')
     with hellow as source:
         audio = r.record(source)
         r.adjust_for_ambient_noise(source, duration=0.5)
