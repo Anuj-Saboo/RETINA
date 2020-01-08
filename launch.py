@@ -7,10 +7,9 @@ import tensornets as nets
 import cv2
 import time
 import pyttsx3
+
 engine = pyttsx3.init()
 engine.setProperty('rate', 120)
-
-
 cvNet = None
 myName = 'hello'
 showVideoStream = False
@@ -19,19 +18,15 @@ audio_yes = 'audio/yes.wav'
 audio_okay = 'audio/okay.wav'
 audio_invalid = 'audio/invalid.wav'
 
-
 classNames={0:'person',2:'car',15:'cat',16:'dog',24:'backpack',25:'umbrella',26:'handbag',39:'bottle',46:'banana',
             47:'apple',49:'orange',53:'pizza',55:'donut',63:'laptop',64:'mouse',66:'keyboard',
             67:'cell phone',68:'microwave',79:'toothbrush'}
-
 
 def get_key(val):
     for key, value in classNames.items():
         if val == value:
             return int(key)
-
     return "key doesn't exist"
-
 
 def run_voice_command():
     rc = sr.Recognizer()
@@ -63,9 +58,7 @@ def run_voice_command():
                         #take indices from dictionary
                         currentIndicesDectecting = indices
                         print('Now detecting: ' + obj)
-
                         coun = 1
-
                     else:
                         print('The object ' + str(obj) + ' is invalid')
                         currentIndicesDectecting = 20
@@ -74,21 +67,16 @@ def run_voice_command():
                 else:
                     print("to start, say Hello")
                     pass
-
 pass
 
-
 def run_video_detection(scoreThreshold):
-
     classes = {}
     inputs = tf.placeholder(tf.float32, [None, 256, 256, 3])
     model = nets.YOLOv3COCO(inputs, nets.Darknet19)
     with tf.Session() as sess:
         sess.run(model.pretrained())
         cap = cv2.VideoCapture(0)
-
         while (cap.isOpened()):
-
             classes[currentIndicesDectecting] = currentClassDetecting
             list_of_classes = [currentIndicesDectecting]
             ret, frame = cap.read()
@@ -99,13 +87,11 @@ def run_video_detection(scoreThreshold):
 
             boxes = model.get_boxes(preds, imge.shape[1:3])
             cv2.namedWindow('Live Camera', cv2.WINDOW_NORMAL)
-
             cv2.resizeWindow('Live Camera', 500, 500)
             boxes1 = np.array(boxes)
 
             for j in list_of_classes:
-                count = 0
-                
+                count = 0               
                 if j in classes:
                     lab = classes[j]  
                 else:
@@ -114,7 +100,6 @@ def run_video_detection(scoreThreshold):
 
                     for i in range(len(boxes1[j])):
                         box = boxes1[j][i]
-
                         if boxes1[j][i][4] >= .40:
                             count += 1
                             obj = lab
@@ -157,8 +142,6 @@ if __name__ == '__main__':
 
     showVideoStream = True
     if args.model ==1:
-
-
         videoStreamThread = threading.Thread(target=run_video_detection,
                                              args=[args.score_threshold])
         videoStreamThread.start()

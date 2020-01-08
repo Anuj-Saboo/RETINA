@@ -68,16 +68,14 @@ def run_video_detection(scoreThreshold):
                         w = int(detection[2] * width)
                         h = int(detection[3] * height)
                         x = int(center_x - w / 2)
-                        y = int(center_y - h / 2)
-                       
+                        y = int(center_y - h / 2)                       
 
                         boxes.append([x, y, w, h])  # put all rectangle areas
                         confidences.append(
                             float(confidence))  
                         class_ids = [class_id]  # name of the object that was detected
             
-            for i in range(len(boxes)):
-                
+            for i in range(len(boxes)):                
                 x, y, w, h = boxes[i]
                 label = str(classes[class_ids[0]])
                 confidence = confidences[i]
@@ -105,7 +103,6 @@ def get_key(val):
             return int(key)
 
     return "key doesn't exist"
-
 
 def run_voice_command(showVideoStream):
     global currentClassDetecting
@@ -146,7 +143,6 @@ def run_voice_command(showVideoStream):
                 else:
                     print("to start, say Hello")
                     pass
-
 pass
 
 def detect(voice_cmd,score_threshold,showVideoStream,currentClass,currentIndices):
