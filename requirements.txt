@@ -22,7 +22,7 @@ pycparser==2.19
 pyspark==2.4.4
 python-dateutil==2.8.1
 pyttsx3==2.71
-PyYAML==5.2
+PyYAML==5.4
 rsa==3.4.2
 s3transfer==0.2.1
 scipy==1.4.1
